@@ -29,6 +29,30 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
  
     <title>Hopital</title>
+    <script >
+      function afficherAutresPatients() {
+        var nomSelect = document.getElementById('nom-select');
+        var selectedNom = nomSelect.value;
+    
+        var dateSelect = document.getElementById('date-select');
+        var heureSelect = document.getElementById('heure-select');
+    
+        dateSelect.innerHTML = "";
+        heureSelect.innerHTML = "";
+    
+        {% for patient in patient_list %}
+            {% if  patient.medecin  == selectedNom %}
+                var optionPrenom = document.createElement('option');
+                optionPrenom.textContent = "{{ patient.date }}";
+                dateSelect.appendChild(optionPrenom);
+    
+                var optionAge = document.createElement('option');
+                optionAge.textContent = "{{ patient.heure }}";
+                heureSelect.appendChild(optionAge);
+            {% endif %}
+        {% endfor %}
+    }
+  </script>
 </head>
 <body>
     <header>

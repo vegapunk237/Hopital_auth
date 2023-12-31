@@ -10,32 +10,30 @@ class Patient(models.Model):
         ('F', 'Feminin'),
     )
     
-    nom = models.CharField(max_length=132)
+    SERVICE = (
+        ('C', 'CHIRURGIEN'),
+        ('CA', 'CARDIOLOGUE'),
+        ('DER', 'DERMATOLOGUE'),
+        ('DEN', 'DENTISTE'),
+        ('O', 'OPHTALMOLOGUE'),
+        
+    )
     
-    prenom = models.CharField(max_length=100)
     
-    email = models.EmailField()
     
-    Adresse = models.CharField(max_length=100)
-    
-    phone = models.CharField(max_length=100)
-    
-    sex = models.CharField(max_length=1, choices=SEX_TYPES)
-    
-    age = models.CharField(max_length = 12)
-    
-    city = models.CharField(max_length=32)
-    
-    created_date = models.DateTimeField(auto_now_add=True)
-    
-    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    nom = models.CharField(max_length=50, null=True)
+    prenom = models.CharField(max_length=50, null=True)
+    email = models.EmailField(max_length=254, null=True)
+    age = models.IntegerField(null=True)
+    sexe = models.CharField(max_length=50, null=True)
+    service = models.CharField(max_length=100)
+    status = models.BooleanField(default=False)
+
     
     class Meta:
         verbose_name = "Patient"
         verbose_name_plural = "Patients"
     
-    def __str__(self):
-        return self.nom
     
 class HabitudeAlimentaire(models.Model):
     
@@ -46,5 +44,16 @@ class HabitudeAlimentaire(models.Model):
     repas = models.CharField(max_length=100)
     boisson = models.CharField(max_length=100)
     lieux = models.CharField(max_length=100)
+    
+class Room(models.Model):
+    name = models.CharField(max_length=2000)
+    date = models.DateField(auto_now_add=100)
+    save_by = models.ForeignKey(User,on_delete=models.PROTECT)
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000000)
+    date = models.DateTimeField(auto_now_add=True)
+    user = models.CharField(max_length=1000000)
+    room = models.CharField(max_length=1000000)
     
     
